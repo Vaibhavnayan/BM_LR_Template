@@ -2,7 +2,7 @@ import os
 
 def addStartContent(index,contents,newFilename,i):
     
-    contents.insert(index, "web_reg_find(\"Text=textcheck%s\", \"SaveCount=TextCount%s\", LAST); \n lr_start_transaction(\"Transaction%s\")\n" %(i,i,i))
+    contents.insert(index, "web_reg_find(\"Text=textcheck%s\", \"SaveCount=TextCount%s\", LAST); \n lr_start_transaction(\"Transaction%s\");\n" %(i,i,i))
     f = open(newFilename, "w")
     contents = "".join(contents)
     f.write(contents)
@@ -12,7 +12,7 @@ def addStartContent(index,contents,newFilename,i):
 
 def addEndContent(index2,contents,fileName,i):
    
-    contents.insert(index2+1, "\n if(TextCount%s){ \n lr_end_transaction(\"Transaction%s\",LR_PASS)\n} \n else { \n lr_end_transaction(\"Transaction%s\",LR_FAIL)\n}\n" %(i,i,i))
+    contents.insert(index2+1, "\n if(atoi(lr_eval_string(\"{TextCount%s}\")) > = 0){ \n lr_end_transaction(\"Transaction%s\",LR_PASS);\n} \n else { \n lr_end_transaction(\"Transaction%s\",LR_FAIL);\n}\n" %(i,i,i))
     f = open(fileName, "w")
     contents = "".join(contents)
     f.write(contents)
