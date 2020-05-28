@@ -1,21 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <div class="container">
-      {%block content%}
-
-      {%endblock%}
-    </div>
-    <form action="/conversionDone" method="post">
-  <label for="filePath">Enter File Path: </label><br>
-  <input type="text" id="filePath" name="filePath"><br>
-  <label for="newfilePath">Enter new File Path: </label><br>
-  <input type="text" id="newfilePath" name="newfilePath"><br>
-  <input type="submit" value="Convert">
+{%extends "main.html" %}
+{%block lrtemplate%}
+<form action="/conversionDone" method="post">
+ <!---- <label for="filePath">Enter File Path: </label><br> -->
+ <div class="wrap-input3">
+  <input class="input3" type="text" id="filePath" name="filePath" placeholder="Original File Path" required><br>
+ <!---- <label for="newfilePath">Enter new File Path: </label><br> -->
+</div>
+<div class="wrap-input3 validate-input">
+  <input class="input3" type="text" id="newfilePath" name="newfilePath" placeholder="New File Path" required><br>
+  <!---- <label for="newfilePath">Enter new File Path: </label><br> -->
+ </div>
+ <div class="container-contact3-form-btn">
+  <input class="contact3-form-btn" type="submit" value="Convert">
+  <span class="focus-input3"> 
+    {%block success%}
+        
+    {%endblock%}
+    
+    {%block error%}
+            
+    {%endblock%}
+  </span>
+</div>
 </form>
-  </body>
-</html>
+{%endblock%}

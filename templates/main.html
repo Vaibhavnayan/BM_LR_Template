@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Python Framework</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css')}}">
+  </head>
+  <body>
+    <div class="bg-contact3">
+        <div class="container-contact3">
+            <div class="wrap-contact3">
+            <span class="contact3-form-title">
+                Let's Convert
+            </span>
+        <div class="lrList">
+            <ul>
+                <li>
+                    <a href="{{ url_for('LR_Template')}}"> LR Template</a>
+                </li>
+                <li>
+                    <a href=""> LR Template With Excel</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            
+        </div>
+        <div class="container">
+        {%block lrtemplate%}
+
+        {%endblock%}
+        </div>
+    </div>  
+</div>
+</div>
+</div>
+  </body>
+</html>
