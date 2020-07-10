@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request,jsonify, redirect, Response, make_response,send_file
 import TxnNaming
 import TxnNaming_with_sheet
+import TxnNaming_API
 import os
 
 app=Flask(__name__)
@@ -38,7 +39,7 @@ def conversionDone():
     filePath = request.form['filePath']
     newfilePath = request.form['newfilePath']
     response1 = TxnNaming.mainFunc(filePath,newfilePath)
-    print("The file path is '" + filePath + "'" + newfilePath+ " " + response1)
+    #print("The file path is '" + filePath + "'" + newfilePath+ " " + response1)
     if response1 == "File doesn't exists":
         return redirect('/error')
     elif not(newfilePath.endswith(".c")):
@@ -48,16 +49,41 @@ def conversionDone():
 
 @app.route('/conversionDone2', methods = ['POST'])
 def conversionDone2():
-    filePath = request.form['filePath']
-    newfilePath = request.form['newfilePath']
-    excelPath = request.form['excelPath']
-    response1 = TxnNaming_with_sheet.mainFunc(filePath,newfilePath,excelPath)
-    print("The file path is '" + filePath + "'" + newfilePath+ " " + response1 + "" + excelPath)
-    if response1 == "File path doesn't exists":
-        return redirect('/error2')
-    elif not(newfilePath.endswith(".c")):
-        return redirect('/error2')
-    else:
-        return redirect('/success2')
+    #filePath = request.form['filePath']
+    
+    #excelPath = request.form['excelPath']
+    script_type = request.form['scripts']
+    filePath = request.files['filePath']
+    newfilePath = filePath.filename
+    excelPath = request.files['excelPath']
+
+    if (script_type == "WEB"):
+        response1, fileName, data = TxnNaming_with_sheet.mainFunc(filePath,newfilePath,excelPath)
+        #print("The file path is '" + response1 +""+fileName+""+data)
+        if response1 == "File path doesn't exists":
+            return redirect('/error2')
+        elif not(newfilePath.endswith(".c")):
+            return redirect('/error2')
+        else:
+            return Response(data,
+                             mimetype="text/c",
+                             headers={"Content-disposition":
+                                     "attachment; filename={}".format(fileName)})
+            #return redirect('/success2')
+
+    elif (script_type == "API"):
+        response1, fileName, data = TxnNaming_API.mainFunc(filePath,newfilePath,excelPath)
+        #print("The file path is '" + filePath + "'" + newfilePath+ " " + response1 + "" + excelPath +" " + script_type)
+        if response1 == "File path doesn't exists":
+            return redirect('/error2')
+        elif not(newfilePath.endswith(".c")):
+            return redirect('/error2')
+        else:
+            return Response(data,
+                         mimetype="text/c",
+                         headers={"Content-disposition":
+                                 "attachment; filename={}".format(fileName)})
+            
+
 if __name__== "__main__":
     app.run(debug=True)

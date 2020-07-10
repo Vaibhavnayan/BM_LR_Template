@@ -1,21 +1,31 @@
 {%extends "main.html" %}
 {%block lrtemplate%}
-<form action="/conversionDone2" method="post">
+<form action="/conversionDone2" method="post" enctype = "multipart/form-data"> 
  <!---- <label for="filePath">Enter File Path: </label><br> -->
  <div class="wrap-input3">
-  <input class="input3" type="text" id="filePath" name="filePath" placeholder="Original File Path" required><br>
- <!---- <label for="newfilePath">Enter new File Path: </label><br> -->
+  <label class="filePath">Upload Script: </label><br>
+  <input class="input3" type="file" id="filePath" name="filePath" required>
+ <br>
 </div>
-<div class="wrap-input3 validate-input">
+<!-- <div class="wrap-input3 validate-input">
   <input class="input3" type="text" id="newfilePath" name="newfilePath" placeholder="New File Path" required><br>
-  <!---- <label for="newfilePath">Enter new File Path: </label><br> -->
- </div>
+  <label for="newfilePath">Enter new File Path: </label><br>
+ </div> -->
  <div class="wrap-input3 validate-input">
-    <input class="input3" type="text" id="excelPath" name="excelPath" placeholder="Excel Sheet Path" required><br>
+  <label class="filePath">Upload Excel: </label><br>
+    <input class="input3" type="file" id="excelPath" name="excelPath" placeholder="Excel Sheet Path" required><br>
     <!---- <label for="newfilePath">Enter new File Path: </label><br> -->
    </div>
- <div class="container-contact3-form-btn">
-  <input class="contact3-form-btn" type="submit" value="Convert">
+ <!-- <div class="container-contact3-form-btn"> -->
+<div class="wrap-input3 validate-input">
+  <label for="scripts" id="script">Type of script: </label>
+  <select name="scripts" class="scripts" id="scripts">
+    <option value="API">API</option>
+    <option value="WEB">WEB</option>
+  </select>
+</div>
+  <!-- <input class="contact3-form-btn" type="submit" value="Convert"> -->
+  <button class="contact3-form-btn" id="btn">Download</button>
   <span class="focus-input3"> 
     {%block success2%}
         
@@ -27,4 +37,22 @@
   </span>
 </div>
 </form>
+
+<script>
+  function loadAjax() {
+    $("#btn").click(function(){
+      $.ajax({
+        method : "post",
+        url : "/conversionDone2",
+        success : function(data) {
+          console.log("Conversion Success");
+        },
+        error: function(data) {
+            console.log("Error");
+        }
+      });
+    });
+  }
+</script>
+
 {%endblock%}

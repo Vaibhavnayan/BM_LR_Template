@@ -191,20 +191,23 @@ iframe {
   position: relative;
   /*border-bottom: 2px solid rgba(255,255,255,0.24);*/
   /*border: 1px solid black;*/
-  margin-bottom: 27px;
+  margin: 20px 0px;
+  display: inline-flex;
+  padding: 10px;
+}
+.filePath{
+border-bottom: 2px solid rgba(255,255,255,0.24);
 }
 
 .input3 {
   display: block;
-  width: 100%;
+  width: 60%;
   background: transparent;
   font-family: Poppins-Regular;
   font-size: 15px;
   color: #fff;
   line-height: 1.2;
-  padding: 0 5px;
-  border-bottom: 2px solid rgba(255,255,255,0.24);
-  margin-top: 30px;
+  padding: 3px 5px;
 }
 
 .focus-input3 {
@@ -247,7 +250,10 @@ font-weight: bolder;
   background: #fff;
 }
 
-
+#script {
+color:black;
+border-bottom: 2px solid rgba(255,255,255,0.24);
+}
 /*---------------------------------------------*/
 input.input3 {
   height: 45px;
@@ -281,7 +287,6 @@ textarea.input3 {
   color: black;
   line-height: 1.2;
   text-transform: uppercase;
-
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -289,9 +294,8 @@ textarea.input3 {
   display: inline;
   justify-content: center;
   align-items: center;
-  padding: 0 15px;
+  padding: 0 15px 15px;
   min-width: 120px;
-  height: 50px;
   border-radius: 2px;
   position: relative;
   z-index: 1;
