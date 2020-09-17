@@ -4,7 +4,7 @@
  <!---- <label for="filePath">Enter File Path: </label><br> -->
  <div class="wrap-input3">
   <label class="filePath">Upload Script: </label><br>
-  <input class="input3" type="file" id="filePath" name="filePath" required>
+  <input class="input3" type="file" id="filePath" name="filePath" accept=".c">
  <br>
 </div>
 <!-- <div class="wrap-input3 validate-input">
@@ -13,7 +13,7 @@
  </div> -->
  <div class="wrap-input3 validate-input">
   <label class="filePath">Upload Excel: </label><br>
-    <input class="input3" type="file" id="excelPath" name="excelPath" placeholder="Excel Sheet Path" required><br>
+    <input class="input3" type="file" id="excelPath" name="excelPath" accept=".csv" placeholder="Excel Sheet Path"><br>
     <!---- <label for="newfilePath">Enter new File Path: </label><br> -->
    </div>
  <!-- <div class="container-contact3-form-btn"> -->
@@ -24,9 +24,14 @@
     <option value="WEB">WEB</option>
   </select>
 </div>
-  <!-- <input class="contact3-form-btn" type="submit" value="Convert"> -->
-  <button class="contact3-form-btn" id="btn">Download</button>
-  <span class="focus-input3"> 
+<div class="container-contact3-form-btn">
+  <!--<input class="contact3-form-btn" type="submit" value="Download"> -->
+  <button class="contact3-form-btn" id="btn" onclick="start(this)" disabled><span class="btn_text">Download</span> <span class="progress_bar"></span></button>  
+  </div>
+  
+  </form> 
+  <div class="" id="message"> 
+
     {%block success2%}
         
     {%endblock%}
@@ -34,24 +39,27 @@
     {%block error2%}
             
     {%endblock%}
-  </span>
 </div>
 </form>
 
-<script>
-  function loadAjax() {
-    $("#btn").click(function(){
-      $.ajax({
-        method : "post",
-        url : "/conversionDone2",
-        success : function(data) {
-          console.log("Conversion Success");
-        },
-        error: function(data) {
-            console.log("Error");
-        }
-      });
+<script type="text/javascript" language="javascript">
+$('#filePath, #excelPath').bind('change', function() {
+    if(allFilled()) $('#btn').removeAttr('disabled');
+});
+
+function allFilled() {
+    var filled = true;
+    $('body input').each(function() {
+        if($(this).val() == '') filled = false;
     });
+    return filled;
+}
+</script>
+
+<script>
+  function start(obj) {
+    document.querySelector(".btn_text").innerHTML = "Processing, please wait..";
+    obj.className = 'contact3-form-btn anim';
   }
 </script>
 
